@@ -4,19 +4,22 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    database_hostname: str  # PGHOST
-    database_port: int  # PGPORT
-    database_username: str  # PGUSER
-    database_password: str  # PGPASSWORD
-    database_name: str  # PGDATABASE
+    # Database settings
+    database_hostname: str
+    database_port: int
+    database_username: str
+    database_password: str
+    database_name: str
+
+    # App settings
     secret_key: str
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 30
 
-    # Pydantic v2: Class variables
-    env_prefix: ClassVar[str] = "PG"  # maps PGHOST, PGPORT etc.
-    env_file: ClassVar[str] = ".env"  # optional local testing
-    env_file_encoding: ClassVar[str] = "utf-8"
+    # Pydantic config
+    env_prefix: ClassVar[str] = ""  # No prefix; match env var names exactly
+    env_file: ClassVar[str] = ".env"  # Optional, local fallback
 
 
-settings = Settings()  # type: ignore
+# Load settings
+settings = Settings()
